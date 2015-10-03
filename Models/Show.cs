@@ -1,78 +1,87 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace MadTVDB.Models
 {
-    [DataContract(Name = "Series", Namespace = "")]
+    [XmlRoot(ElementName = "Series")]
     public class Show
     {
-        [DataMember(Name = "id")]
-        public int id { get; private set; }
+        public TimeSpan airTimeSpan
+        {
+            get
+            {
+                DateTime dateTime;
+                if (DateTime.TryParse(airTime, out dateTime) == false)
+                    return new TimeSpan();
+                else
+                    return dateTime.TimeOfDay;
+            }
+        }
 
-        [DataMember(Name = "Actors")]
+        [XmlElement(ElementName = "id")]
+        public int id { get; set; }
+
+        [XmlElement(ElementName = "Actors")]
         public string actors { get; set; }
 
-        [DataMember(Name = "Airs_DayOfWeek")]
-        public string airDay { get; private set; }
+        [XmlElement(ElementName = "Airs_DayOfWeek")]
+        public string airDay { get; set; }
 
-        [DataMember(Name = "Airs_Time")]
-        public TimeSpan? airTime { get; private set; }
+        [XmlElement(ElementName = "Airs_Time")]
+        public string airTime { get; set; }
 
-        [DataMember(Name = "AliasNames")]
-        public string aliasNames { get; private set; }
+        [XmlElement(ElementName = "AliasNames")]
+        public string aliasNames { get; set; }
 
-        [DataMember(Name = "ContentRating")]
-        public string contentRating { get; private set; }
+        [XmlElement(ElementName = "ContentRating")]
+        public string contentRating { get; set; }
 
-        [DataMember(Name = "FirstAired")]
-        public DateTime firstAired { get; private set; }
+        [XmlElement(ElementName = "FirstAired")]
+        public DateTime? firstAired { get; set; }
 
-        [DataMember(Name = "Genre")]
-        public string genres { get; private set; }
+        [XmlElement(ElementName = "Genre")]
+        public string genres { get; set; }
 
-        [DataMember(Name = "IMDB_ID")]
-        public string imdb { get; private set; }
+        [XmlElement(ElementName = "IMDB_ID")]
+        public string imdb { get; set; }
 
-        [DataMember(Name = "Language")]
-        public string language { get; private set; }
+        [XmlElement(ElementName = "Language")]
+        public string language { get; set; }
 
-        [DataMember(Name = "Network")]
-        public string network { get; private set; }
+        [XmlElement(ElementName = "Network")]
+        public string network { get; set; }
 
-        [DataMember(Name = "Overview")]
-        public string description { get; private set; }
+        [XmlElement(ElementName = "Overview")]
+        public string description { get; set; }
 
-        [DataMember(Name = "Rating")]
-        public double? rating { get; private set; }
+        [XmlElement(ElementName = "Rating")]
+        public double? rating { get; set; }
 
-        [DataMember(Name = "RatingCount")]
-        public int ratingCount { get; private set; }
+        [XmlElement(ElementName = "RatingCount")]
+        public int ratingCount { get; set; }
 
-        [DataMember(Name = "Runtime")]
-        public uint episodeRuntime { get; private set; }
+        [XmlElement(ElementName = "Runtime")]
+        public uint episodeRuntime { get; set; }
 
-        [DataMember(Name = "SeriesID")]
-        public uint seriesID { get; private set; }
+        [XmlElement(ElementName = "SeriesID")]
+        public uint seriesID { get; set; }
 
-        [DataMember(Name = "SeriesName")]
-        public string name { get; private set; }
+        [XmlElement(ElementName = "SeriesName")]
+        public string name { get; set; }
 
-        [DataMember(Name = "Status")]
-        public string status { get; private set; }
+        [XmlElement(ElementName = "Status")]
+        public string status { get; set; }
 
-        [DataMember(Name = "banner")]
-        public string banner { get; private set; }
+        [XmlElement(ElementName = "banner")]
+        public string bannerURL { get; set; }
 
-        [DataMember(Name = "fanart")]
-        public string fanart { get; private set; }
+        [XmlElement(ElementName = "fanart")]
+        public string fanartURL { get; set; }
 
-        [DataMember(Name = "lastupdated")]
-        public long? lastUpdated { get; private set; }
+        [XmlElement(ElementName = "lastupdated")]
+        public long? lastUpdated { get; set; }
 
-        [DataMember(Name = "poster")]
-        public string poster { get; private set; }
-        
-        public List<Episode> episodes;
+        [XmlElement(ElementName = "poster")]
+        public string posterURL { get; set; }
     }
 }

@@ -10,4 +10,11 @@ namespace MadTVDB.Models
         [XmlElement(ElementName = "Series")]
         public List<SearchResult> searchResults { get; set; }
     }
+
+    [XmlRoot(ElementName = "Data")]
+    public class TVDBSeriesResponse
+    {
+        [XmlElement(ElementName = "Series")]
+        public Show show { get; set; }
+    }
 }

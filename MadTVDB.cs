@@ -22,5 +22,11 @@ namespace MadTVDB
             TVDBSearchResponse searchResponse = await _tvdbData.Search(query);
             return searchResponse;
         }
+
+        public async Task<TVDBSeriesResponse> SeriesInformation(uint tvdbID)
+        {
+            TVDBSeriesResponse seriesResponse = await _tvdbData.SeriesInformation(tvdbID);
+            return seriesResponse;
+        }
     }
 }

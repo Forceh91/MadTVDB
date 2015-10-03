@@ -27,16 +27,37 @@ namespace MadTVDB.Models
             if (string.IsNullOrEmpty(tvdbResponse))
                 return null;
 
+            // read the response in through a memory stream and use the xml serializer
             TVDBSearchResponse tvdbSearchResponse = new TVDBSearchResponse();
-            tvdbResponse = tvdbResponse.ToString();
             using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(tvdbResponse)))
             {
                 var serializer = new XmlSerializer(typeof(TVDBSearchResponse));
                 tvdbSearchResponse = (serializer.Deserialize(memoryStream) as TVDBSearchResponse);
             }
 
-            // otherwise we need to parse the response into a show object
+            // we should have some info now so return it
             return tvdbSearchResponse;
+        }
+
+        public async Task<TVDBSeriesResponse> SeriesInformation(uint tvdbID)
+        {
+            string apiCallURL = string.Format("{0}/api/{1}/series/{2}", _baseURL, _apiKey, tvdbID);
+            string tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+
+            // return an empty response if the the tvdb was dead
+            if (string.IsNullOrEmpty(tvdbResponse))
+                return null;
+
+            // read the response in through a memory stream and use the xml serializer
+            TVDBSeriesResponse tvdbSeriesResponse = new TVDBSeriesResponse();
+            using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(tvdbResponse)))
+            {
+                var serializer = new XmlSerializer(typeof(TVDBSeriesResponse));
+                tvdbSeriesResponse = (serializer.Deserialize(memoryStream) as TVDBSeriesResponse);
+            }
+
+            // we should have some info now so return it
+            return tvdbSeriesResponse;
         }
 
         private async Task<string> GetHTTPString(Uri requestUri)
