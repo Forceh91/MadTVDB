@@ -16,4 +16,4 @@ To use this library you need to obtain an API key from The TVDB, which can be fo
 	TVDBSearchResponse searchResponse = await madTVDB.Search("The Flash");
 ```
 
-The above could would return a list of all shows The TVDB finds that are to do with "The Flash".
+The above code would return a list of all shows The TVDB finds that are to do with "The Flash".
