@@ -41,7 +41,7 @@ namespace MadTVDB.Models
 
         public async Task<TVDBSeriesResponse> SeriesInformation(uint tvdbID)
         {
-            string apiCallURL = string.Format("{0}/api/{1}/series/{2}", _baseURL, _apiKey, tvdbID);
+            string apiCallURL = string.Format("{0}/api/{1}/series/{2}/all", _baseURL, _apiKey, tvdbID);
             string tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
 
             // return an empty response if the the tvdb was dead

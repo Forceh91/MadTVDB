@@ -16,5 +16,8 @@ namespace MadTVDB.Models
     {
         [XmlElement(ElementName = "Series")]
         public Show show { get; set; }
+
+        [XmlElement(ElementName = "Episode")]
+        public List<Episode> episodes { get; set; }
     }
 }
