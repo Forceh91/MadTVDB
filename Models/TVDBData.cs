@@ -60,6 +60,27 @@ namespace MadTVDB.Models
             return tvdbSeriesResponse;
         }
 
+        public async Task<TVDBBannerResponse> SeriesBannerInformation(uint tvdbID)
+        {
+            string apiCallURL = string.Format("{0}/api/{1}/series/{2}/banners.xml", _baseURL, _apiKey, tvdbID);
+            string tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+
+            // return an empty response if the the tvdb was dead
+            if (string.IsNullOrEmpty(tvdbResponse))
+                return null;
+
+            // read the response in through a memory stream and use the xml serializer
+            TVDBBannerResponse tvdbBannerResponse = new TVDBBannerResponse();
+            using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(tvdbResponse)))
+            {
+                var serializer = new XmlSerializer(typeof(TVDBBannerResponse));
+                tvdbBannerResponse = (serializer.Deserialize(memoryStream) as TVDBBannerResponse);
+            }
+
+            // we should have some info now so return it
+            return tvdbBannerResponse;
+        }
+
         private async Task<string> GetHTTPString(Uri requestUri)
         {
             HttpClient httpclient = new HttpClient();

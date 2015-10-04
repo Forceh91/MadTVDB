@@ -20,4 +20,11 @@ namespace MadTVDB.Models
         [XmlElement(ElementName = "Episode")]
         public List<Episode> episodes { get; set; }
     }
+
+    [XmlRoot(ElementName = "Banners")]
+    public class TVDBBannerResponse
+    {
+        [XmlElement(ElementName = "Banner")]
+        public List<Banner> banners { get; set; }
+    }
 }
