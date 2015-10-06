@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MadTVDBPortable.Models;
+using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,7 +62,7 @@ namespace MadTVDB.Models
             return tvdbSeriesResponse;
         }
 
-        public async Task<TVDBBannerResponse> SeriesBannerInformation(uint tvdbID)
+        public async Task<TVDBBannerResponse> SeriesBannerInformation(uint tvdbID, BannerType bannerType)
         {
             string apiCallURL = string.Format("{0}/api/{1}/series/{2}/banners.xml", _baseURL, _apiKey, tvdbID);
             string tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
@@ -77,7 +79,14 @@ namespace MadTVDB.Models
                 tvdbBannerResponse = (serializer.Deserialize(memoryStream) as TVDBBannerResponse);
             }
 
-            // we should have some info now so return it
+            // we want all of them so just return this
+            if (bannerType == BannerType.All)
+                return tvdbBannerResponse;
+
+            // otherwise we need to make a new list
+            tvdbBannerResponse.banners = tvdbBannerResponse.banners.Where(banner => banner.bannerType == bannerType).ToList();
+
+            // and return said list
             return tvdbBannerResponse;
         }
 

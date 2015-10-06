@@ -9,7 +9,8 @@ namespace MadTVDBPortable.Models
         Poster = 1,
         Fanart,
         Series,
-        Season
+        Season,
+        All
     }
 
     [XmlRoot(ElementName = "Banner")]

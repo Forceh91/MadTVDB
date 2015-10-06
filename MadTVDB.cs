@@ -1,4 +1,5 @@
 ﻿using MadTVDB.Models;
+using MadTVDBPortable.Models;
 using System.Threading.Tasks;
 
 namespace MadTVDB
@@ -29,9 +30,9 @@ namespace MadTVDB
             return seriesResponse;
         }
 
-        public async Task<TVDBBannerResponse> SeriesBannerInformation(uint tvdbID)
+        public async Task<TVDBBannerResponse> SeriesBannerInformation(uint tvdbID, BannerType bannerType = BannerType.All)
         {
-            TVDBBannerResponse bannerResponse = await _tvdbData.SeriesBannerInformation(tvdbID);
+            TVDBBannerResponse bannerResponse = await _tvdbData.SeriesBannerInformation(tvdbID, bannerType);
             return bannerResponse;
         }
     }
