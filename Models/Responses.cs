@@ -27,4 +27,11 @@ namespace MadTVDB.Models
         [XmlElement(ElementName = "Banner")]
         public List<Banner> banners { get; set; }
     }
+
+    [XmlRoot(ElementName = "Actors")]
+    public class TVDBActorResponse
+    {
+        [XmlElement(ElementName = "Actor")]
+        public List<Actor> actors { get; set; }
+    }
 }

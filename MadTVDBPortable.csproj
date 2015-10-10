@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MadTVDB.cs" />
+    <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\Banner.cs" />
     <Compile Include="Models\Episode.cs" />
     <Compile Include="Models\Responses.cs" />
