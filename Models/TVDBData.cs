@@ -111,6 +111,27 @@ namespace MadTVDB.Models
             return tvdbActorResponse;
         }
 
+        public async Task<TVDBEpisodeResponse> EpisodeInformation(uint tvdbEpisodeID)
+        {
+            string apiCallURL = string.Format("{0}/api/{1}/episodes/{2}", _baseURL, _apiKey, tvdbEpisodeID);
+            string tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+
+            // return an empty response if the the tvdb was dead
+            if (string.IsNullOrEmpty(tvdbResponse))
+                return null;
+
+            // read the response in through a memory stream and use the xml serializer
+            TVDBEpisodeResponse tvdbEpisodeResponse = new TVDBEpisodeResponse();
+            using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(tvdbResponse)))
+            {
+                var serializer = new XmlSerializer(typeof(TVDBEpisodeResponse));
+                tvdbEpisodeResponse = (serializer.Deserialize(memoryStream) as TVDBEpisodeResponse);
+            }
+
+            // we should have some info now so return it
+            return tvdbEpisodeResponse;
+        }
+
         private async Task<string> GetHTTPString(Uri requestUri)
         {
             HttpClient httpclient = new HttpClient();

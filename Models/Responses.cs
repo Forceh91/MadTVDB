@@ -34,4 +34,11 @@ namespace MadTVDB.Models
         [XmlElement(ElementName = "Actor")]
         public List<Actor> actors { get; set; }
     }
+
+    [XmlRoot(ElementName = "Data")]
+    public class TVDBEpisodeResponse
+    {
+        [XmlElement(ElementName = "Episode")]
+        public Episode episode;
+    }
 }
