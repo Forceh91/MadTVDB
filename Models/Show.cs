@@ -6,18 +6,6 @@ namespace MadTVDB.Models
     [XmlRoot(ElementName = "Series")]
     public class Show
     {
-        public TimeSpan airTimeSpan
-        {
-            get
-            {
-                DateTime dateTime;
-                if (DateTime.TryParse(airTime, out dateTime) == false)
-                    return new TimeSpan();
-                else
-                    return dateTime.TimeOfDay;
-            }
-        }
-
         [XmlElement(ElementName = "id")]
         public int id { get; set; }
 
@@ -28,7 +16,18 @@ namespace MadTVDB.Models
         public string airDay { get; set; }
 
         [XmlElement(ElementName = "Airs_Time")]
-        public string airTime { get; set; }
+        public string _airTime { get; set; }
+        public TimeSpan airTime
+        {
+            get
+            {
+                DateTime dateTime;
+                if (DateTime.TryParse(_airTime, out dateTime) == false)
+                    return new TimeSpan();
+                else
+                    return dateTime.TimeOfDay;
+            }
+        }
 
         [XmlElement(ElementName = "AliasNames")]
         public string aliasNames { get; set; }
