@@ -5,14 +5,14 @@ using System.Xml.Serialization;
 namespace MadTVDB.Models
 {
     [XmlRoot(ElementName = "Data")]
-    public class TVDBSearchResponse
+    public class TVDBSearchResponse : TVDBError
     {
         [XmlElement(ElementName = "Series")]
         public List<SearchResult> searchResults { get; set; }
     }
 
     [XmlRoot(ElementName = "Data")]
-    public class TVDBSeriesResponse
+    public class TVDBSeriesResponse : TVDBError
     {
         [XmlElement(ElementName = "Series")]
         public Show show { get; set; }
@@ -22,23 +22,28 @@ namespace MadTVDB.Models
     }
 
     [XmlRoot(ElementName = "Banners")]
-    public class TVDBBannerResponse
+    public class TVDBBannerResponse : TVDBError
     {
         [XmlElement(ElementName = "Banner")]
         public List<Banner> banners { get; set; }
     }
 
     [XmlRoot(ElementName = "Actors")]
-    public class TVDBActorResponse
+    public class TVDBActorResponse : TVDBError
     {
         [XmlElement(ElementName = "Actor")]
         public List<Actor> actors { get; set; }
     }
 
     [XmlRoot(ElementName = "Data")]
-    public class TVDBEpisodeResponse
+    public class TVDBEpisodeResponse : TVDBError
     {
         [XmlElement(ElementName = "Episode")]
         public Episode episode;
+    }
+
+    public class TVDBError
+    {
+        public bool serverUnavailable;
     }
 }

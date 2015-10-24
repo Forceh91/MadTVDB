@@ -21,11 +21,33 @@ namespace MadTVDB.Models
         public uint id { get; set; }
 
         [XmlElement(ElementName = "Combined_episodenumber")]
-        public double combinedEpisodeNumber { get; set; }
+        public string _combinedEpisodeNumber { get; set; }
+        public double combinedEpisosdeNumber
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_combinedEpisodeNumber))
+                    return 0;
+                else
+                    return Convert.ToDouble(_combinedEpisodeNumber);
+            }
+        }
 
         [XmlElement(ElementName = "Combined_season")]
-        public double combinedSeasonNumber { get; set; }
+        public string _combinedSeasonNumber { get; set; }
+        public double combinedSeasonNumber
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_combinedSeasonNumber))
+                    return 0;
+                else
+                    return Convert.ToDouble(_combinedSeasonNumber);
+            }
+        }
 
+        [XmlElement(ElementName = "DVD_episodenumber")]
+        public string _dvdEpisodeNumber { get; set; }
         public double dvdEpisodeNumber
         {
             get
@@ -37,9 +59,8 @@ namespace MadTVDB.Models
             }
         }
 
-        [XmlElement(ElementName = "DVD_episodenumber")]
-        public string _dvdEpisodeNumber { get; set; }
-
+        [XmlElement(ElementName = "DVD_season")]
+        public string _dvdSeason { get; set; }
         public uint dvdSeason
         {
             get
@@ -51,12 +72,11 @@ namespace MadTVDB.Models
             }
         }
 
-        [XmlElement(ElementName = "DVD_season")]
-        public string _dvdSeason { get; set; }
-
         [XmlElement(ElementName = "Director")]
         public string director { get; set; }
 
+        [XmlElement(ElementName = "EpImgFlag")]
+        public string _epImgFlag { get; set; }
         public EpImg epImgFlag
         {
             get
@@ -68,17 +88,35 @@ namespace MadTVDB.Models
             }
         }
 
-        [XmlElement(ElementName = "EpImgFlag")]
-        public string _epImgFlag { get; set; }
 
         [XmlElement(ElementName = "EpisodeName")]
         public string episodeName { get; set; }
 
         [XmlElement(ElementName = "EpisodeNumber")]
-        public uint episodeNumber { get; set; }
+        public string _episodeNumber { get; set; }
+        public uint episodeNumber
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_episodeNumber))
+                    return 0;
+                else
+                    return Convert.ToUInt32(_episodeNumber);
+            }
+        }
 
         [XmlElement(ElementName = "FirstAired")]
-        public DateTime? firstAired { get; set; }
+        public string _firstAired { get; set; }
+        public DateTime firstAired
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_firstAired))
+                    return DateTime.MinValue;
+                else
+                    return Convert.ToDateTime(_firstAired);
+            }
+        }
 
         [XmlElement(ElementName = "GuestStars")]
         public string guestStars { get; set; }
@@ -95,6 +133,8 @@ namespace MadTVDB.Models
         [XmlElement(ElementName = "ProductionCode")]
         public string productionCode { get; set; }
 
+        [XmlElement(ElementName = "Rating")]
+        public string _rating { get; set; }
         public double rating
         {
             get
@@ -106,18 +146,19 @@ namespace MadTVDB.Models
             }
         }
 
-        [XmlElement(ElementName = "Rating")]
-        public string _rating { get; set; }
-
         [XmlElement(ElementName = "RatingCount")]
-        public uint ratingCount { get; set; }
+        public string _ratingCount { get; set; }
+        public uint ratingCount { get { return (string.IsNullOrEmpty(_ratingCount) ? 0 : Convert.ToUInt32(_ratingCount)); } }
 
         [XmlElement(ElementName = "SeasonNumber")]
-        public uint seasonNumber { get; set; }
+        public string _seasonNumber { get; set; }
+        public uint seasonNumber { get { return (string.IsNullOrEmpty(_seasonNumber) ? 0 : Convert.ToUInt32(_seasonNumber)); } }
 
         [XmlElement(ElementName = "Writer")]
         public string writer { get; set; }
 
+        [XmlElement(ElementName = "absolute_number")]
+        public string _absoluteNumber { get; set; }
         public uint absoluteNumber
         {
             get
@@ -129,20 +170,21 @@ namespace MadTVDB.Models
             }
         }
 
-        [XmlElement(ElementName = "absolute_number")]
-        public string _absoluteNumber { get; set; }
-
         [XmlElement(ElementName = "airsafter_season")]
-        public uint airsAfterSeason { get; set; }
+        public string _airsAfterSeason { get; set; }
+        public uint airsAfterSeason { get { return (string.IsNullOrEmpty(_airsAfterSeason) ? 0 : Convert.ToUInt32(_airsAfterSeason)); } }
 
         [XmlElement(ElementName = "airsbefore_season")]
-        public uint airsBeforeSeason { get; set; }
+        public string _airsBeforeSeason { get; set; }
+        public uint airsBeforeSeason { get { return (string.IsNullOrEmpty(_airsBeforeSeason) ? 0 : Convert.ToUInt32(_airsBeforeSeason)); } }
 
         [XmlElement(ElementName = "airsafter_episode")]
-        public uint airsAfterEpisode { get; set; }
+        public string _airsAfterEpisode { get; set; }
+        public uint airsAfterEpisode { get { return (string.IsNullOrEmpty(_airsAfterEpisode) ? 0 : Convert.ToUInt32(_airsAfterEpisode)); } }
 
         [XmlElement(ElementName = "airsbefore_episode")]
-        public uint airsBeforeEpisode { get; set; }
+        public string _airsBeforeEpisode { get; set; }
+        public uint airsBeforeEpisode { get { return (string.IsNullOrEmpty(_airsBeforeEpisode) ? 0 : Convert.ToUInt32(_airsBeforeEpisode)); } }
 
         [XmlElement(ElementName = "filename")]
         public string artworkURL { get; set; }
@@ -151,11 +193,15 @@ namespace MadTVDB.Models
         public double lastUpdated { get; set; }
 
         [XmlElement(ElementName = "seasonid")]
-        public uint seasonID { get; set; }
+        public string _seasonID { get; set; }
+        public uint seasonID { get { return (string.IsNullOrEmpty(_seasonID) ? 0 : Convert.ToUInt32(_seasonID)); } }
 
         [XmlElement(ElementName = "seriesid")]
-        public uint seriesID { get; set; }
+        public string _seriesID { get; set; }
+        public uint seriesID { get { return (string.IsNullOrEmpty(_seriesID) ? 0 : Convert.ToUInt32(_seriesID)); } }
 
+        [XmlElement(ElementName = "thumb_added")]
+        public string _thumbAdded { get; set; }
         public DateTime thumbAdded
         {
             get
@@ -167,9 +213,8 @@ namespace MadTVDB.Models
             }
         }
 
-        [XmlElement(ElementName = "thumb_added")]
-        public string _thumbAdded { get; set; }
-
+        [XmlElement(ElementName = "thumb_height")]
+        public string _thumbHeight { get; set; }
         public uint thumbHeight
         {
             get
@@ -181,9 +226,8 @@ namespace MadTVDB.Models
             }
         }
 
-        [XmlElement(ElementName = "thumb_height")]
-        public string _thumbHeight { get; set; }
-
+        [XmlElement(ElementName = "thumb_width")]
+        public string _thumbWidth { get; set; }
         public uint thumbWidth
         {
             get
@@ -194,8 +238,5 @@ namespace MadTVDB.Models
                     return Convert.ToUInt32(_thumbWidth);
             }
         }
-
-        [XmlElement(ElementName = "thumb_width")]
-        public string _thumbWidth { get; set; }
     }
 }

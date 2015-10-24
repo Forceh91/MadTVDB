@@ -23,14 +23,24 @@ namespace MadTVDB.Models
         public async Task<TVDBSearchResponse> Search(string query)
         {
             string apiCallURL = string.Format("{0}/api/GetSeries.php?seriesname={1}", _baseURL, query);
-            string tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+            string tvdbResponse = string.Empty;
+
+            TVDBSearchResponse tvdbSearchResponse = new TVDBSearchResponse();
+            try
+            {
+                tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+            }
+            catch(HttpRequestException)
+            {
+                tvdbSearchResponse.serverUnavailable = true;
+                return tvdbSearchResponse;
+            }
 
             // return an empty list if there was an empty response
             if (string.IsNullOrEmpty(tvdbResponse))
                 return null;
 
             // read the response in through a memory stream and use the xml serializer
-            TVDBSearchResponse tvdbSearchResponse = new TVDBSearchResponse();
             using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(tvdbResponse)))
             {
                 var serializer = new XmlSerializer(typeof(TVDBSearchResponse));
@@ -44,14 +54,24 @@ namespace MadTVDB.Models
         public async Task<TVDBSeriesResponse> SeriesInformation(uint tvdbID)
         {
             string apiCallURL = string.Format("{0}/api/{1}/series/{2}/all", _baseURL, _apiKey, tvdbID);
-            string tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+            string tvdbResponse = string.Empty;
+
+            TVDBSeriesResponse tvdbSeriesResponse = new TVDBSeriesResponse();
+            try
+            {
+                tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+            }
+            catch (HttpRequestException)
+            {
+                tvdbSeriesResponse.serverUnavailable = true;
+                return tvdbSeriesResponse;
+            }
 
             // return an empty response if the the tvdb was dead
             if (string.IsNullOrEmpty(tvdbResponse))
                 return null;
 
             // read the response in through a memory stream and use the xml serializer
-            TVDBSeriesResponse tvdbSeriesResponse = new TVDBSeriesResponse();
             using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(tvdbResponse)))
             {
                 var serializer = new XmlSerializer(typeof(TVDBSeriesResponse));
@@ -65,14 +85,24 @@ namespace MadTVDB.Models
         public async Task<TVDBBannerResponse> SeriesBannerInformation(uint tvdbID, BannerType bannerType)
         {
             string apiCallURL = string.Format("{0}/api/{1}/series/{2}/banners.xml", _baseURL, _apiKey, tvdbID);
-            string tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+            string tvdbResponse = string.Empty;
+
+            TVDBBannerResponse tvdbBannerResponse = new TVDBBannerResponse();
+            try
+            {
+                tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+            }
+            catch (HttpRequestException)
+            {
+                tvdbBannerResponse.serverUnavailable = true;
+                return tvdbBannerResponse;
+            }
 
             // return an empty response if the the tvdb was dead
             if (string.IsNullOrEmpty(tvdbResponse))
                 return null;
 
             // read the response in through a memory stream and use the xml serializer
-            TVDBBannerResponse tvdbBannerResponse = new TVDBBannerResponse();
             using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(tvdbResponse)))
             {
                 var serializer = new XmlSerializer(typeof(TVDBBannerResponse));
@@ -93,14 +123,24 @@ namespace MadTVDB.Models
         public async Task<TVDBActorResponse> SeriesActorInformation(uint tvdbID)
         {
             string apiCallURL = string.Format("{0}/api/{1}/series/{2}/actors.xml", _baseURL, _apiKey, tvdbID);
-            string tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+            string tvdbResponse = string.Empty;
+
+            TVDBActorResponse tvdbActorResponse = new TVDBActorResponse();
+            try
+            {
+                tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+            }
+            catch (HttpRequestException)
+            {
+                tvdbActorResponse.serverUnavailable = true;
+                return tvdbActorResponse;
+            }
 
             // return an empty response if the the tvdb was dead
             if (string.IsNullOrEmpty(tvdbResponse))
                 return null;
 
             // read the response in through a memory stream and use the xml serializer
-            TVDBActorResponse tvdbActorResponse = new TVDBActorResponse();
             using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(tvdbResponse)))
             {
                 var serializer = new XmlSerializer(typeof(TVDBActorResponse));
@@ -114,14 +154,24 @@ namespace MadTVDB.Models
         public async Task<TVDBEpisodeResponse> EpisodeInformation(uint tvdbEpisodeID)
         {
             string apiCallURL = string.Format("{0}/api/{1}/episodes/{2}", _baseURL, _apiKey, tvdbEpisodeID);
-            string tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+            string tvdbResponse = string.Empty;
+
+            TVDBEpisodeResponse tvdbEpisodeResponse = new TVDBEpisodeResponse();
+            try
+            {
+                tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+            }
+            catch (HttpRequestException)
+            {
+                tvdbEpisodeResponse.serverUnavailable = true;
+                return tvdbEpisodeResponse;
+            }
 
             // return an empty response if the the tvdb was dead
             if (string.IsNullOrEmpty(tvdbResponse))
                 return null;
 
             // read the response in through a memory stream and use the xml serializer
-            TVDBEpisodeResponse tvdbEpisodeResponse = new TVDBEpisodeResponse();
             using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(tvdbResponse)))
             {
                 var serializer = new XmlSerializer(typeof(TVDBEpisodeResponse));

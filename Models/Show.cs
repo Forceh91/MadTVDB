@@ -37,7 +37,8 @@ namespace MadTVDB.Models
         public string contentRating { get; set; }
 
         [XmlElement(ElementName = "FirstAired")]
-        public DateTime? firstAired { get; set; }
+        public string _firstAired { get; set; }
+        public DateTime firstAired { get { return (string.IsNullOrEmpty(_firstAired) ? DateTime.MinValue : Convert.ToDateTime(_firstAired)); } }
 
         [XmlElement(ElementName = "Genre")]
         public string genres { get; set; }
@@ -55,16 +56,20 @@ namespace MadTVDB.Models
         public string description { get; set; }
 
         [XmlElement(ElementName = "Rating")]
-        public double? rating { get; set; }
+        public string _rating { get; set; }
+        public double rating { get { return (string.IsNullOrEmpty(_rating) ? 0 : Convert.ToDouble(_rating)); } }
 
         [XmlElement(ElementName = "RatingCount")]
-        public int ratingCount { get; set; }
+        public string _ratingCount { get; set; }
+        public uint ratingCount { get { return (string.IsNullOrEmpty(_ratingCount) ? 0 : Convert.ToUInt32(_ratingCount)); } }
 
         [XmlElement(ElementName = "Runtime")]
-        public uint episodeRuntime { get; set; }
+        public string _episodeRuntime { get; set; }
+        public uint episodeRuntime { get { return (string.IsNullOrEmpty(_episodeRuntime) ? 0 : Convert.ToUInt32(_episodeRuntime)); } }
 
         [XmlElement(ElementName = "SeriesID")]
-        public uint seriesID { get; set; }
+        public string _seriesID { get; set; }
+        public uint seriesID { get { return (string.IsNullOrEmpty(_seriesID) ? 0 : Convert.ToUInt32(_seriesID)); } }
 
         [XmlElement(ElementName = "SeriesName")]
         public string name { get; set; }
@@ -79,7 +84,7 @@ namespace MadTVDB.Models
         public string fanartURL { get; set; }
 
         [XmlElement(ElementName = "lastupdated")]
-        public long? lastUpdated { get; set; }
+        public long lastUpdated { get; set; }
 
         [XmlElement(ElementName = "poster")]
         public string posterURL { get; set; }
