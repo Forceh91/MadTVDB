@@ -53,7 +53,7 @@ namespace MadTVDB.Models
 
         public async Task<TVDBSeriesResponse> SeriesInformation(uint tvdbID)
         {
-            string apiCallURL = string.Format("{0}/api/{1}/series/{2}/all?language=en", _baseURL, _apiKey, tvdbID);
+            string apiCallURL = string.Format("{0}/api/{1}/series/{2}/all/en.xml", _baseURL, _apiKey, tvdbID);
             string tvdbResponse = string.Empty;
 
             TVDBSeriesResponse tvdbSeriesResponse = new TVDBSeriesResponse();
