@@ -36,6 +36,12 @@ namespace MadTVDB
             return bannerResponse;
         }
 
+        public async Task<TVDBBannerResponse> SeriesBannerInformation(uint tvdbID, int season = -1, BannerType bannerType = BannerType.All)
+        {
+            TVDBBannerResponse bannerResponse = await _tvdbData.SeriesBannerInformation(tvdbID, season, bannerType);
+            return bannerResponse;
+        }
+
         public async Task<TVDBActorResponse> SeriesActorInformation(uint tvdbID)
         {
             TVDBActorResponse actorResponse = await _tvdbData.SeriesActorInformation(tvdbID);
