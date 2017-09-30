@@ -13,6 +13,16 @@ namespace MadTVDBPortable.Models
         All
     }
 
+    public enum BannerType2
+    {
+        Text,
+        Graphical,
+        Blank,
+        Res1080,
+        Res720,
+        Unknown
+    }
+
     [XmlRoot(ElementName = "Banner")]
     public class Banner
     {
@@ -45,8 +55,34 @@ namespace MadTVDBPortable.Models
             }
         }
 
+        public BannerType2 bannerType2
+        {
+            get
+            {
+                switch (_bannerType2)
+                {
+                    case "text":
+                        return BannerType2.Text;
+                    case "graphical":
+                        return BannerType2.Graphical;
+                    case "blank":
+                        return BannerType2.Blank;
+
+                    case "1920x1080":
+                        return BannerType2.Res1080;
+                    case "1280x720":
+                        return BannerType2.Res720;
+                }
+
+                return BannerType2.Unknown;
+            }
+        }
+
         [XmlElement(ElementName = "BannerType")]
         public string _bannerType { get; set; }
+
+        [XmlElement(ElementName = "BannerType2")]
+        public string _bannerType2 { get; set; }
 
         [XmlElement(ElementName = "Language")]
         public string language { get; set; }

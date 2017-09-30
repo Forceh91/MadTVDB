@@ -120,6 +120,46 @@ namespace MadTVDB.Models
             return tvdbBannerResponse;
         }
 
+        public async Task<TVDBBannerResponse> SeriesBannerInformation(uint tvdbID, int season, BannerType bannerType)
+        {
+            string apiCallURL = string.Format("{0}/api/{1}/series/{2}/banners.xml", _baseURL, _apiKey, tvdbID);
+            string tvdbResponse = string.Empty;
+
+            TVDBBannerResponse tvdbBannerResponse = new TVDBBannerResponse();
+            try
+            {
+                tvdbResponse = await GetHTTPString(new Uri(apiCallURL));
+            }
+            catch (HttpRequestException)
+            {
+                tvdbBannerResponse.serverUnavailable = true;
+                return tvdbBannerResponse;
+            }
+
+            // return an empty response if the the tvdb was dead
+            if (string.IsNullOrEmpty(tvdbResponse))
+                return null;
+
+            // read the response in through a memory stream and use the xml serializer
+            using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(tvdbResponse)))
+            {
+                var serializer = new XmlSerializer(typeof(TVDBBannerResponse));
+                tvdbBannerResponse = (serializer.Deserialize(memoryStream) as TVDBBannerResponse);
+            }
+
+            // we want all of them so just return this
+            if (bannerType == BannerType.All)
+                return tvdbBannerResponse;
+
+            // otherwise we need to make a new list
+            tvdbBannerResponse.banners = tvdbBannerResponse.banners.Where(banner => banner.bannerType == bannerType).ToList();
+            if (season != -1)
+                tvdbBannerResponse.banners = tvdbBannerResponse.banners.Where(banner => banner.season == season).ToList();
+
+            // and return said list
+            return tvdbBannerResponse;
+        }
+
         public async Task<TVDBActorResponse> SeriesActorInformation(uint tvdbID)
         {
             string apiCallURL = string.Format("{0}/api/{1}/series/{2}/actors.xml", _baseURL, _apiKey, tvdbID);
