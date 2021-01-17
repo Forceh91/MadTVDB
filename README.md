@@ -1,4 +1,6 @@
-# MadTVDB
+# MadTVDB (Archived)
+
+***This project has been archived. This was for the original XML based API. The TVDB has since switched to a JSON API with an annual subscription***
 
 An open-source portable C# library for the "The TVDB" API.  Can be used with any project with .NET Framework 4.5.1 or higher. It will also work with any Windows 8.1, Windows Phone 8.1 and Windows 10 apps.
 
